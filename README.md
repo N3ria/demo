@@ -9,7 +9,8 @@ This repository showcases a collection of **seasonal landing pages** and **QR me
 ## 🔗 Live Demos
 
 ### • Christmas Landing Page  
-https://web-power.gr/menu_demos/christmas.html
+https://web-power.gr/menu_demos/christmas.html,
+
 https://web-power.gr/menu_demos/christmas_vintage.html
 
 ### • QR Menu – Dark Theme  
