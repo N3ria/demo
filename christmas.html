@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Christmas QR Menus</title>
+  <!-- Bootstrap 5 CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lora:wght@400;600&family=Poppins:wght@400;600&family=Great+Vibes&family=Montserrat:wght@400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --card-width: 430px;
+      --card-radius: 24px;
+      --card-padding: 24px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #2b2b4b 0, #070814 55%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .wrapper {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .layout-buttons .btn {
+      margin: 4px;
+      text-transform: none;
+      font-size: 0.9rem;
+    }
+
+    .menu-layout {
+      display: none;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .menu-layout.active {
+      display: block;
+    }
+
+    .menu-card {
+      margin: 0 auto;
+      max-width: var(--card-width);
+      border-radius: var(--card-radius);
+      padding: var(--card-padding);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .menu-title {
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .menu-heading {
+      margin: 0.2rem 0 0.1rem;
+      font-size: 1.9rem;
+    }
+
+    .menu-subtitle {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .menu-qr {
+      width: 90px;
+      height: 90px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+    }
+
+    .menu-qr img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .menu-section-title {
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.16em;
+      margin-top: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .menu-divider {
+      width: 60px;
+      height: 2px;
+      margin-bottom: 0.8rem;
+      border-radius: 999px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 0.65rem;
+    }
+
+    .menu-item-name {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .menu-item-desc {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    .menu-item-price {
+      font-size: 0.95rem;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .menu-footer {
+      margin-top: 1.8rem;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      text-align: center;
+    }
+
+    /* --- LAYOUT 1: Red & Gold Classic --- */
+    .layout-1 .menu-card {
+      background: radial-gradient(circle at top, #5c101e 0, #28030b 55%);
+      color: #fbe8d0;
+      border: 1px solid rgba(255, 217, 179, 0.35);
+    }
+    .layout-1 .menu-title {
+      font-family: "Poppins", sans-serif;
+      color: #ffd9b3;
+    }
+    .layout-1 .menu-heading {
+      font-family: "Playfair Display", serif;
+      color: #fff7e9;
+    }
+    .layout-1 .menu-subtitle {
+      font-family: "Lora", serif;
+    }
+    .layout-1 .menu-divider {
+      background: linear-gradient(90deg, #ffd36b, #ff9b4a);
+    }
+    .layout-1 .menu-section-title {
+      color: #ffd9b3;
+      font-family: "Poppins", sans-serif;
+    }
+    .layout-1 .menu-item-name {
+      font-family: "Lora", serif;
+    }
+
+    /* subtle star pattern */
+    .layout-1 .menu-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.18) 0, transparent 35%),
+        radial-gradient(circle at 80% 0, rgba(255,255,255,0.08) 0, transparent 45%),
+        radial-gradient(circle at 60% 70%, rgba(255,255,255,0.06) 0, transparent 50%);
+      mix-blend-mode: screen;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* --- LAYOUT 2: Evergreen Cozy --- */
+    .layout-2 .menu-card {
+      background: linear-gradient(145deg, #0b2720, #02130e);
+      color: #f1fff5;
+      border: 1px solid rgba(200, 255, 210, 0.4);
+    }
+    .layout-2 .menu-title {
+      font-family: "Montserrat", sans-serif;
+      color: #d6ffe2;
+    }
+    .layout-2 .menu-heading {
+      font-family: "Great Vibes", cursive;
+      font-size: 2.2rem;
+      color: #ffffff;
+    }
+    .layout-2 .menu-subtitle {
+      font-family: "Quicksand", sans-serif;
+    }
+    .layout-2 .menu-divider {
+      background: linear-gradient(90deg, #a8ffbf, #69d889);
+    }
+    .layout-2 .menu-section-title {
+      color: #caf8dd;
+      font-family: "Montserrat", sans-serif;
+    }
+    .layout-2 .menu-card::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background-image:
+        repeating-linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.06) 2px,
+          transparent 2px,
+          transparent 6px
+        );
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    /* --- LAYOUT 3: Midnight Blue Elegant --- */
+    .layout-3 .menu-card {
+      background: radial-gradient(circle at top, #1a2242 0, #050714 55%);
+      color: #e4f1ff;
+      border: 1px solid rgba(183, 210, 255, 0.45);
+    }
+    .layout-3 .menu-title {
+      font-family: "Montserrat", sans-serif;
+      color: #b7d2ff;
+    }
+    .layout-3 .menu-heading {
+      font-family: "Playfair Display", serif;
+      color: #ffffff;
+    }
+    .layout-3 .menu-subtitle {
+      font-family: "Lora", serif;
+    }
+    .layout-3 .menu-divider {
+      background: linear-gradient(90deg, #b7d2ff, #70a2ff);
+    }
+    .layout-3 .menu-section-title {
+      color: #b7d2ff;
+      font-family: "Montserrat", sans-serif;
+    }
+    .layout-3 .menu-card::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background-image:
+        radial-gradient(circle at 20% 0, rgba(255, 255, 255, 0.16) 0, transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0, transparent 35%);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* --- LAYOUT 4: Rustic Wood & Warm Lights --- */
+    .layout-4 .menu-card {
+      background:
+        linear-gradient(120deg, rgba(84, 50, 30, 0.98), rgba(43, 22, 11, 0.98)),
+        repeating-linear-gradient(
+          -8deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.08) 1px,
+          transparent 1px,
+          transparent 9px
+        );
+      color: #ffe9cf;
+      border: 1px solid rgba(255, 214, 170, 0.5);
+    }
+    .layout-4 .menu-title {
+      font-family: "Poppins", sans-serif;
+      color: #ffe0b8;
+    }
+    .layout-4 .menu-heading {
+      font-family: "Great Vibes", cursive;
+      font-size: 2.2rem;
+      color: #fff3df;
+    }
+    .layout-4 .menu-subtitle {
+      font-family: "Lora", serif;
+    }
+    .layout-4 .menu-divider {
+      background: linear-gradient(90deg, #ffc46b, #ff9950);
+    }
+    .layout-4 .menu-section-title {
+      color: #ffe0b8;
+      font-family: "Poppins", sans-serif;
+    }
+    .layout-4 .menu-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 10% -10%, rgba(255, 241, 186, 0.45) 0, transparent 50%),
+        radial-gradient(circle at 80% 0, rgba(255, 203, 134, 0.4) 0, transparent 50%),
+        radial-gradient(circle at 50% 110%, rgba(255, 196, 145, 0.3) 0, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* --- LAYOUT 5: Snowy White Minimal --- */
+    .layout-5 .menu-card {
+      background:
+        radial-gradient(circle at top left, #ffffff 0, #f4f7fb 55%),
+        repeating-linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.02),
+          rgba(0, 0, 0, 0.02) 1px,
+          transparent 1px,
+          transparent 7px
+        );
+      color: #1e2833;
+      border: 1px solid rgba(209, 219, 235, 0.9);
+    }
+    .layout-5 .menu-title {
+      font-family: "Montserrat", sans-serif;
+      color: #7687a4;
+    }
+    .layout-5 .menu-heading {
+      font-family: "Playfair Display", serif;
+      color: #1a2533;
+    }
+    .layout-5 .menu-subtitle {
+      font-family: "Quicksand", sans-serif;
+      color: #4b5a70;
+    }
+    .layout-5 .menu-divider {
+      background: linear-gradient(90deg, #9bb5ff, #74e0ff);
+    }
+    .layout-5 .menu-section-title {
+      color: #5c6a85;
+      font-family: "Montserrat", sans-serif;
+    }
+    .layout-5 .menu-card::before {
+      content: "";
+      position: absolute;
+      inset: -15%;
+      background-image:
+        radial-gradient(circle at 10% 10%, rgba(145, 197, 255, 0.25) 0, transparent 45%),
+        radial-gradient(circle at 80% 60%, rgba(196, 239, 255, 0.3) 0, transparent 50%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* --- LAYOUT 6: Candy Cane Fun --- */
+    .layout-6 .menu-card {
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          #fffbfb,
+          #fffbfb 14px,
+          #ffe0e0 14px,
+          #ffe0e0 28px
+        );
+      color: #3c2222;
+      border: 1px solid rgba(221, 120, 120, 0.8);
+    }
+    .layout-6 .menu-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.85) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .layout-6 .menu-title {
+      font-family: "Poppins", sans-serif;
+      color: #b02222;
+    }
+    .layout-6 .menu-heading {
+      font-family: "Great Vibes", cursive;
+      color: #7b1111;
+      font-size: 2.2rem;
+    }
+    .layout-6 .menu-subtitle {
+      font-family: "Quicksand", sans-serif;
+      color: #5a2b2b;
+    }
+    .layout-6 .menu-divider {
+      background: linear-gradient(90deg, #ff5e5e, #ff9a7b);
+    }
+    .layout-6 .menu-section-title {
+      color: #7b1111;
+      font-family: "Poppins", sans-serif;
+    }
+
+    @media (max-width: 576px) {
+      :root {
+        --card-width: 100%;
+        --card-radius: 18px;
+        --card-padding: 18px;
+      }
+      .menu-heading {
+        font-size: 1.7rem;
+      }
+      .menu-qr {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper text-center text-light">
+    <h1 class="h4 mb-3">Christmas QR Menus</h1>
+    <p class="small mb-3 opacity-75">
+      Scan by QR → open one of these layouts. Edit texts, prices, and QR image sources as you wish.
+    </p>
+
+    <!-- Layout Switch Buttons -->
+    <div class="layout-buttons mb-3">
+      <button class="btn btn-sm btn-outline-light active" data-layout="1">Layout 1 – Red &amp; Gold</button>
+      <button class="btn btn-sm btn-outline-light" data-layout="2">Layout 2 – Evergreen</button>
+      <button class="btn btn-sm btn-outline-light" data-layout="3">Layout 3 – Midnight Blue</button>
+      <button class="btn btn-sm btn-outline-light" data-layout="4">Layout 4 – Rustic Wood</button>
+      <button class="btn btn-sm btn-outline-light" data-layout="5">Layout 5 – Snowy White</button>
+      <button class="btn btn-sm btn-outline-light" data-layout="6">Layout 6 – Candy Cane</button>
+    </div>
+
+    <!-- LAYOUT 1 -->
+    <section class="menu-layout layout-1 active">
+      <div class="menu-card">
+        <div class="menu-header">
+          <div class="text-start position-relative" style="z-index:2;">
+            <div class="menu-title">Festive Dinner Menu</div>
+            <h2 class="menu-heading">Christmas at The Red Velvet</h2>
+            <div class="menu-subtitle">Cozy classics in an elegant red &amp; gold mood.</div>
+          </div>
+          <div class="menu-qr position-relative" style="z-index:2;">
+            <!-- Change the path to your QR image -->
+            <!-- e.g. src="images/menu1-qr.png" or "C:\\xampp\\htdocs\\form\\images\\menu1-qr.png" -->
+            <img src="images/menu1-qr.png" alt="QR code to view this menu" />
+          </div>
+        </div>
+
+        <!-- Starters -->
+        <div class="text-start position-relative" style="z-index:2;">
+          <div class="menu-section-title">Starters</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Roasted Chestnut Soup</div>
+              <div class="menu-item-desc">Creamy chestnut velouté with nutmeg and a touch of truffle oil.</div>
+            </div>
+            <div class="menu-item-price">7.50€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Cranberry &amp; Brie Crostini</div>
+              <div class="menu-item-desc">Warm Brie on toasted baguette with spiced cranberry relish.</div>
+            </div>
+            <div class="menu-item-price">8.00€</div>
+          </div>
+        </div>
+
+        <!-- Mains -->
+        <div class="text-start position-relative" style="z-index:2;">
+          <div class="menu-section-title">Main Courses</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Herb Butter Roasted Turkey</div>
+              <div class="menu-item-desc">Served with gravy, sage stuffing, roasted potatoes &amp; vegetables.</div>
+            </div>
+            <div class="menu-item-price">18.90€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Red Wine Braised Beef</div>
+              <div class="menu-item-desc">Slow-cooked beef cheeks with parsnip purée and glazed carrots.</div>
+            </div>
+            <div class="menu-item-price">21.50€</div>
+          </div>
+        </div>
+
+        <!-- Desserts & Drinks -->
+        <div class="text-start position-relative" style="z-index:2;">
+          <div class="menu-section-title">Desserts</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Gingerbread Cheesecake</div>
+              <div class="menu-item-desc">Silky cheesecake on a ginger biscuit base.</div>
+            </div>
+            <div class="menu-item-price">6.50€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Drinks</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Mulled Red Wine</div>
+              <div class="menu-item-desc">Cinnamon, orange, cloves &amp; star anise.</div>
+            </div>
+            <div class="menu-item-price">5.50€</div>
+          </div>
+        </div>
+
+        <div class="menu-footer position-relative" style="z-index:2;">
+          All prices include VAT. Please inform us of any allergies.
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYOUT 2 -->
+    <section class="menu-layout layout-2">
+      <div class="menu-card">
+        <div class="menu-header">
+          <div class="text-start position-relative" style="z-index:2;">
+            <div class="menu-title">Forest Christmas Menu</div>
+            <h2 class="menu-heading">Evergreen Feast</h2>
+            <div class="menu-subtitle">A warm and cozy dinner inspired by winter forests.</div>
+          </div>
+          <div class="menu-qr position-relative" style="z-index:2;">
+            <img src="images/menu2-qr.png" alt="QR code to view this menu" />
+          </div>
+        </div>
+
+        <div class="text-start position-relative" style="z-index:2;">
+          <div class="menu-section-title">Starters</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Winter Garden Salad</div>
+              <div class="menu-item-desc">Baby greens, roasted pumpkin, pecans &amp; cranberry vinaigrette.</div>
+            </div>
+            <div class="menu-item-price">7.90€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Wild Mushroom Tart</div>
+              <div class="menu-item-desc">Flaky pastry with sautéed forest mushrooms &amp; goat cheese.</div>
+            </div>
+            <div class="menu-item-price">8.50€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Main Courses</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Cedar Wood Salmon</div>
+              <div class="menu-item-desc">Grilled salmon with herb butter, baby potatoes &amp; green beans.</div>
+            </div>
+            <div class="menu-item-price">19.50€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Hazelnut Crusted Pork Loin</div>
+              <div class="menu-item-desc">Served with apple cider sauce &amp; roasted root vegetables.</div>
+            </div>
+            <div class="menu-item-price">18.50€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Desserts &amp; Drinks</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Cinnamon Apple Crumble</div>
+              <div class="menu-item-desc">Served warm with vanilla ice cream.</div>
+            </div>
+            <div class="menu-item-price">6.00€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Hot Spice Chocolate</div>
+              <div class="menu-item-desc">Dark chocolate, nutmeg &amp; orange zest.</div>
+            </div>
+            <div class="menu-item-price">4.80€</div>
+          </div>
+        </div>
+
+        <div class="menu-footer position-relative" style="z-index:2;">
+          Vegetarian options available. Ask your waiter for today’s specials.
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYOUT 3 -->
+    <section class="menu-layout layout-3">
+      <div class="menu-card">
+        <div class="menu-header">
+          <div class="text-start position-relative" style="z-index:2;">
+            <div class="menu-title">Winter Night Menu</div>
+            <h2 class="menu-heading">Midnight Christmas Soirée</h2>
+            <div class="menu-subtitle">Elegant dishes under a starry winter sky.</div>
+          </div>
+          <div class="menu-qr position-relative" style="z-index:2;">
+            <img src="images/menu3-qr.png" alt="QR code to view this menu" />
+          </div>
+        </div>
+
+        <div class="text-start position-relative" style="z-index:2;">
+          <div class="menu-section-title">Starters</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Smoked Salmon Rosettes</div>
+              <div class="menu-item-desc">With dill cream, lemon pearls &amp; rye crisps.</div>
+            </div>
+            <div class="menu-item-price">9.50€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Blue Cheese &amp; Pear Salad</div>
+              <div class="menu-item-desc">Baby leaves, candied walnuts &amp; honey dressing.</div>
+            </div>
+            <div class="menu-item-price">8.90€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Main Courses</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Duck à l’Orange</div>
+              <div class="menu-item-desc">Crispy duck breast, orange glaze &amp; potato gratin.</div>
+            </div>
+            <div class="menu-item-price">22.00€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Truffle Tagliatelle</div>
+              <div class="menu-item-desc">Fresh pasta, black truffle cream &amp; parmesan.</div>
+            </div>
+            <div class="menu-item-price">19.80€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Desserts &amp; Drinks</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Dark Chocolate Fondant</div>
+              <div class="menu-item-desc">Molten center with vanilla bean ice cream.</div>
+            </div>
+            <div class="menu-item-price">7.20€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Sparkling Winter Spritz</div>
+              <div class="menu-item-desc">Prosecco, spiced syrup &amp; rosemary.</div>
+            </div>
+            <div class="menu-item-price">6.50€</div>
+          </div>
+        </div>
+
+        <div class="menu-footer position-relative" style="z-index:2;">
+          A 10% service charge may apply for groups of 8 or more.
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYOUT 4 -->
+    <section class="menu-layout layout-4">
+      <div class="menu-card">
+        <div class="menu-header">
+          <div class="text-start position-relative" style="z-index:2;">
+            <div class="menu-title">Cozy Fireplace Menu</div>
+            <h2 class="menu-heading">Rustic Christmas Table</h2>
+            <div class="menu-subtitle">Comfort food with a festive twist by the fire.</div>
+          </div>
+          <div class="menu-qr position-relative" style="z-index:2;">
+            <img src="images/menu4-qr.png" alt="QR code to view this menu" />
+          </div>
+        </div>
+
+        <div class="text-start position-relative" style="z-index:2;">
+          <div class="menu-section-title">Starters</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Baked Camembert</div>
+              <div class="menu-item-desc">With rosemary, garlic &amp; toasted sourdough.</div>
+            </div>
+            <div class="menu-item-price">9.20€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Spiced Pumpkin Soup</div>
+              <div class="menu-item-desc">Roasted pumpkin, cream &amp; toasted seeds.</div>
+            </div>
+            <div class="menu-item-price">7.20€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Main Courses</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Slow-Cooked Lamb Shank</div>
+              <div class="menu-item-desc">With red wine jus &amp; mashed potatoes.</div>
+            </div>
+            <div class="menu-item-price">20.50€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Chestnut &amp; Sage Gnocchi</div>
+              <div class="menu-item-desc">Handmade gnocchi with chestnuts, sage &amp; butter.</div>
+            </div>
+            <div class="menu-item-price">17.90€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Desserts &amp; Drinks</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Toffee Pudding</div>
+              <div class="menu-item-desc">Warm sticky toffee pudding with caramel sauce.</div>
+            </div>
+            <div class="menu-item-price">6.90€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Cinnamon Latte</div>
+              <div class="menu-item-desc">Espresso, steamed milk &amp; cinnamon foam.</div>
+            </div>
+            <div class="menu-item-price">4.50€</div>
+          </div>
+        </div>
+
+        <div class="menu-footer position-relative" style="z-index:2;">
+          Ask about our gluten-free options and children’s menu.
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYOUT 5 -->
+    <section class="menu-layout layout-5">
+      <div class="menu-card">
+        <div class="menu-header">
+          <div class="text-start position-relative" style="z-index:2;">
+            <div class="menu-title">Snowy Brunch Menu</div>
+            <h2 class="menu-heading">White Christmas Brunch</h2>
+            <div class="menu-subtitle">Bright, airy and minimal with festive flavors.</div>
+          </div>
+          <div class="menu-qr position-relative" style="z-index:2;">
+            <img src="images/menu5-qr.png" alt="QR code to view this menu" />
+          </div>
+        </div>
+
+        <div class="text-start position-relative" style="z-index:2;">
+          <div class="menu-section-title">Brunch Plates</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Eggs Benedict Noël</div>
+              <div class="menu-item-desc">Poached eggs, smoked ham, hollandaise &amp; brioche.</div>
+            </div>
+            <div class="menu-item-price">11.50€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Snowflake Pancakes</div>
+              <div class="menu-item-desc">Fluffy pancakes, white chocolate &amp; berry compote.</div>
+            </div>
+            <div class="menu-item-price">10.20€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Light Bites</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Winter Fruit Bowl</div>
+              <div class="menu-item-desc">Pear, orange, pomegranate &amp; mint syrup.</div>
+            </div>
+            <div class="menu-item-price">7.80€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Hot &amp; Cold Drinks</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Vanilla Snow Cappuccino</div>
+              <div class="menu-item-desc">Espresso, milk foam &amp; vanilla.</div>
+            </div>
+            <div class="menu-item-price">4.20€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Frost Berry Mocktail</div>
+              <div class="menu-item-desc">Cranberry, lime, soda &amp; fresh berries.</div>
+            </div>
+            <div class="menu-item-price">5.50€</div>
+          </div>
+        </div>
+
+        <div class="menu-footer position-relative" style="z-index:2;">
+          Brunch is served from 10:00 to 15:00. Vegan milk alternatives available.
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYOUT 6 -->
+    <section class="menu-layout layout-6">
+      <div class="menu-card">
+        <div class="menu-header">
+          <div class="text-start position-relative" style="z-index:2;">
+            <div class="menu-title">Holiday Treats Menu</div>
+            <h2 class="menu-heading">Candy Cane Corner</h2>
+            <div class="menu-subtitle">Playful sweets &amp; drinks in a candy-striped mood.</div>
+          </div>
+          <div class="menu-qr position-relative" style="z-index:2;">
+            <img src="images/menu6-qr.png" alt="QR code to view this menu" />
+          </div>
+        </div>
+
+        <div class="text-start position-relative" style="z-index:2;">
+          <div class="menu-section-title">Sweet Treats</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Candy Cane Brownie</div>
+              <div class="menu-item-desc">Fudgy brownie with peppermint crunch.</div>
+            </div>
+            <div class="menu-item-price">5.80€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Santa’s Cupcake Trio</div>
+              <div class="menu-item-desc">Red velvet, vanilla snow &amp; chocolate fudge.</div>
+            </div>
+            <div class="menu-item-price">7.20€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Hot Drinks</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Peppermint Hot Chocolate</div>
+              <div class="menu-item-desc">Topped with whipped cream &amp; candy cane.</div>
+            </div>
+            <div class="menu-item-price">4.90€</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Gingerbread Latte</div>
+              <div class="menu-item-desc">Espresso, gingerbread syrup &amp; cream.</div>
+            </div>
+            <div class="menu-item-price">4.70€</div>
+          </div>
+
+          <div class="menu-section-title mt-3">Festive Drinks</div>
+          <div class="menu-divider"></div>
+
+          <div class="menu-item">
+            <div>
+              <div class="menu-item-name">Candy Cane Fizz</div>
+              <div class="menu-item-desc">Sparkling lemonade with peppermint &amp; berries.</div>
+            </div>
+            <div class="menu-item-price">5.20€</div>
+          </div>
+        </div>
+
+        <div class="menu-footer position-relative" style="z-index:2;">
+          Take-away available. Ask for our gift boxes with assorted sweets.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Simple JS to switch between layouts
+    document.querySelectorAll(".layout-buttons .btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const layout = this.getAttribute("data-layout");
+        document
+          .querySelectorAll(".layout-buttons .btn")
+          .forEach((b) => b.classList.remove("active"));
+        this.classList.add("active");
+
+        document
+          .querySelectorAll(".menu-layout")
+          .forEach((sec) => sec.classList.remove("active"));
+        document
+          .querySelector(".layout-" + layout)
+          .classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>
